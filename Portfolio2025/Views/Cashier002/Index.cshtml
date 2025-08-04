@@ -1,0 +1,36 @@
+﻿@using Portfolio2025.Models.Cashier002.ViewModels
+@model SalesViewModel
+<div class="row">
+
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-4">
+        @* Category selection *@
+        <select asp-for="SelectedCategoryId" class="form-control">
+            <option>-- Please select --</option>
+            @if (Model.Categories != null && Model.Categories.Count() > 0)
+            {
+                @foreach(var i in Model.Categories)
+                {
+                    <option value="@i.CategoryId">@i.Name</option>
+                }
+            }
+        </select>
+
+        <br />
+        <div>
+            @* Product list *@
+        </div>
+        <br />
+        <div>
+            @* Product details *@
+        </div>
+        @* asles form *@
+    </div>
+    <div class="col">
+
+    </div>
+</div>

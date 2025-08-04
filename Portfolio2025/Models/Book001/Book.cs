@@ -2,7 +2,7 @@
 using CsvHelper.Configuration.Attributes;
 using System.Globalization;
 
-namespace Portfolio2025.Models
+namespace Portfolio2025.Models.Book001
 {
     public class Book
     {
@@ -38,7 +38,7 @@ namespace Portfolio2025.Models
         }
         public static Book GetBook(int id)
         {
-            List<Book> books = DB.LoadBooks();
+            List<Book> books = LoadBooks();
 
             return books.FirstOrDefault(x => x.Id==id);
         }

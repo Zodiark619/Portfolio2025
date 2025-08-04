@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Portfolio2025.Models;
+using Portfolio2025.Models.Book001;
 
-namespace Portfolio2025.Controllers
+namespace Portfolio2025.Controllers.Book001
 {
     public class Book001Controller : Controller
     {
