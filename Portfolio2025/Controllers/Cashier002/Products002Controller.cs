@@ -160,5 +160,17 @@ namespace Portfolio2025.Controllers.Cashier002
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
+
+        public IActionResult ProductsByCategoryPartial(int categoryId)
+        {
+            var products=GetProductsByCategoryId(categoryId);
+            return PartialView("_Products", products);
+        }
+
+        public List<Product> GetProductsByCategoryId(int categoryId)
+        {
+
+            return _context.Products.Where(x=>x.CategoryId == categoryId).ToList();
+        }
     }
 }

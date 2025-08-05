@@ -1,0 +1,31 @@
+﻿@using Portfolio2025.Models.Cashier002
+@model IEnumerable<Transaction>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cashier Name</th>
+                <th>Product Name</th>
+                <th>Datetime</th>
+                <th>Qty Before</th>
+                <th>Qty Sold</th>
+                <th>Qty After</th>
+                <th>Sold Amt</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(var i in Model)
+        {
+            <tr>@i.CashierName</tr>
+            <tr>@i.ProductName</tr>
+            <tr>@i.TimeStamp.ToString("MM/dd hh:mm")</tr>
+            <tr>@i.BeforeQty</tr>
+            <tr>@i.SoldQty</tr>
+            <tr>@(i.BeforeQty-i.SoldQty)</tr>
+            <tr>@(string.Format("{0:c}",  i.SoldQty*i.Price))</tr>
+           
+        }
+        </tbody>
+    </table>

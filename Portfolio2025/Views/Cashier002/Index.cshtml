@@ -8,6 +8,7 @@
 <br />
 <div class="row">
     <div class="col-4">
+        <div class="text-danger" asp-validation-summary="All"></div>
         @* Category selection *@
         <select asp-for="SelectedCategoryId" class="form-control">
             <option>-- Please select --</option>
@@ -21,16 +22,81 @@
         </select>
 
         <br />
-        <div>
+        <div id="productsPartial">
             @* Product list *@
         </div>
         <br />
-        <div>
+        <div id="productDetailPartial">
             @* Product details *@
         </div>
+        <form method="post" asp-controller="Cashier002" asp-action="Sell" id="formSale">
+            <input asp-for="SelectedProductId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="QuantityToSell" ></label>
+                <input asp-for="QuantityToSell" class="form-control" type="number"   />
+                
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
         @* asles form *@
     </div>
     <div class="col">
-
+        @await Component.InvokeAsync("Transactions")
     </div>
 </div>
+
+
+
+
+@section Scripts{
+    <script>
+        $(function(){
+            const url = '@Url.Action("ProductsByCategoryPartial", "Products002")';
+            const url2='@Url.Action("SellProductsPartial", "Cashier002")';
+
+                    $("#formSale").hide()
+            $("#QuantityToSell").val("")
+
+            var selectedCategoryId=$("#SelectedCategoryId").val();
+            if(selectedCategoryId>0){
+                loadProducts(selectedCategoryId);
+            }
+
+
+
+            $("#SelectedCategoryId").on("change",function(){
+              //  $("#productsPartial").load("/Products002/ProductsByCategoryPartial",{categoryId:$(this).val()})
+
+                    loadProducts($(this).val());
+            })
+
+            $("#productsPartial").on("click",".product-row",function(){
+                $(".product-row").removeClass("highlight");
+                $(this).addClass("highlight");
+
+
+                var productId=$(this).attr("product-id")
+                $("#productDetailPartial").load("/Cashier002/SellProductsPartial",{productId:productId})
+                if(productId>0){
+                    $("#SelectedProductId").val(productId)
+                    $("#formSale").show()
+                }else{
+                    $("#SelectedProductId").val("")
+
+                    $("#formSale").hide()
+
+                }
+            })
+        });
+
+
+        function loadProducts(categoryId){
+              $("#productsPartial").load("/Products002/ProductsByCategoryPartial",{categoryId:categoryId})
+                $("#productDetailPartial").html("")
+                    $("#formSale").hide()
+        }
+    </script>
+}
