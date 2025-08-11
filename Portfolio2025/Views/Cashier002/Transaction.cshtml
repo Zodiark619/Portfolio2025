@@ -1,6 +1,8 @@
 ﻿@using Portfolio2025.Models.Cashier002.ViewModels
 @model TransactionViewModel
 
+<div id="printarea" >
+
 
 <form method="post" asp-controller="Cashier002" asp-action="Search" id="transactions">
     <div class="row">
@@ -21,7 +23,8 @@
             <button type="submit" class="btn btn-primary form-control">Search</button>
         </div>
         <div class="col-2">
-    
+            <label>&nbsp;</label>
+            <button type="button" id="print" class="btn btn-primary form-control">Print</button>
         </div>
     </div>
 </form>
@@ -71,3 +74,16 @@
         </tfoot>
     </table>
 }
+
+</div>
+
+
+                    @section Scripts{
+                        <script>
+                            $(function(){
+                                $("#print").on("click",function(){
+                                    window.print()
+                                })
+                            })
+                        </script>
+                    }
